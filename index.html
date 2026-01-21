@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busani Graig Dube | R&D Engineer Intern & Draftsman</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        swRed: '#E33339', // SolidWorks-ish Red
+                        swGrey: '#4A4A4A',
+                        engBlue: '#0f4c81',
+                        slate: {
+                            850: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        /* Blueprint Pattern Background for Hero */
+        .blueprint-bg {
+            background-color: #0f4c81;
+            background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
+            }
+
+        .category-btn.active {
+            background-color: #0f4c81;
+            color: white;
+            border-color: #0f4c81;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-cube text-engBlue text-2xl"></i>
+                    <span class="font-bold text-xl tracking-tight text-slate-800">Busani Graig Dube<span class="text-slate-400 font-light"> | R&D Design</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#portfolio" class="text-slate-600 hover:text-engBlue transition-colors">Portfolio</a>
+                    <a href="#about" class="text-slate-600 hover:text-engBlue transition-colors">About</a>
+                    <a href="#contact" class="text-slate-600 hover:text-engBlue transition-colors">Contact</a>
+                </div>
+                <!-- Mobile Menu Button (Placeholder functionality) -->
+                <div class="md:hidden text-slate-600 text-xl cursor-pointer">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="blueprint-bg text-white py-20 lg:py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">R&D Engineer Intern & Draftsman</h1>
+            <p class="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto mb-8 font-light">
+                Specializing in product development, tooling design, and precision manufacturing documentation.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#contact" class="bg-white text-engBlue font-semibold px-6 py-3 rounded-md hover:bg-gray-100 transition-colors shadow-lg">
+                    Contact Me
+                </a>
+                <a href="#portfolio" class="bg-transparent border border-white text-white font-semibold px-6 py-3 rounded-md hover:bg-white hover:text-engBlue transition-colors">
+                    View Projects
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute -bottom-10 -right-10 opacity-10 text-white text-9xl">
+            <i class="fa-solid fa-gear fa-spin-pulse" style="animation-duration: 10s;"></i>
+        </div>
+    </header>
+
+    <!-- Filter Section -->
+    <section id="portfolio" class="pt-16 pb-8 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">My Projects</h2>
+                <div class="w-16 h-1 bg-engBlue mx-auto rounded"></div>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10" id="filter-container">
+                <button onclick="filterProjects('all')" class="category-btn active px-5 py-2 rounded-full border border-slate-300 text-slate-600 hover:border-engBlue hover:text-engBlue transition-all text-sm font-medium" data-filter="all">All</button>
+                <button onclick="filterProjects('assembly')" class="category-btn px-5 py-2 rounded-full border border-slate-300 text-slate-600 hover:border-engBlue hover:text-engBlue transition-all text-sm font-medium" data-filter="assembly">
+                    <i class="fa-solid fa-cubes mr-1"></i> Assemblies
+                </button>
+                <button onclick="filterProjects('part')" class="category-btn px-5 py-2 rounded-full border border-slate-300 text-slate-600 hover:border-engBlue hover:text-engBlue transition-all text-sm font-medium" data-filter="part">
+                    <i class="fa-solid fa-puzzle-piece mr-1"></i> Parts / Tooling
+                </button>
+                <button onclick="filterProjects('drawing')" class="category-btn px-5 py-2 rounded-full border border-slate-300 text-slate-600 hover:border-engBlue hover:text-engBlue transition-all text-sm font-medium" data-filter="drawing">
+                    <i class="fa-solid fa-pen-ruler mr-1"></i> Drawings
+                </button>
+                <button onclick="filterProjects('zip')" class="category-btn px-5 py-2 rounded-full border border-slate-300 text-slate-600 hover:border-engBlue hover:text-engBlue transition-all text-sm font-medium" data-filter="zip">
+                    <i class="fa-solid fa-file-zipper mr-1"></i> Archives
+                </button>
+                <button onclick="filterProjects('other')" class="category-btn px-5 py-2 rounded-full border border-slate-300 text-slate-600 hover:border-engBlue hover:text-engBlue transition-all text-sm font-medium" data-filter="other">
+                    <i class="fa-solid fa-folder-plus mr-1"></i> Other
+                </button>
+            </div>
+
+            <!-- Grid Container -->
+            <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Projects will be injected here by JS -->
+            </div>
+
+            <div id="no-results" class="hidden text-center py-12">
+                <i class="fa-solid fa-folder-open text-6xl text-slate-300 mb-4"></i>
+                <p class="text-slate-500 text-lg">No projects found in this category.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2 relative">
+                    <!-- Geometric graphic since no real photo -->
+                    <div class="aspect-video bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center relative border border-slate-200">
+                        <i class="fa-solid fa-compass-drafting text-slate-300 text-9xl"></i>
+                        <div class="absolute inset-0 bg-gradient-to-tr from-engBlue/10 to-transparent"></div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-4 text-slate-800">About Me</h2>
+                    <h3 class="text-xl text-engBlue font-medium mb-4">Busani Graig Dube</h3>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        I am an R&D Engineer Intern and Junior Design Draftsman with 4 years of SolidWorks experience. I am currently working at <strong>Mohlalefi Engineering</strong> in Gauteng, where I specialize in Research & Development product design and manufacturing documentation.
+                    </p>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        I studied Mechanical & Mechatronic Engineering (Undergraduate Studies) at the University of Cape Town (UCT), where I completed extensive engineering design projects. My expertise includes interpretating complex requirements into 3D models and ensuring 100% accuracy in technical drawings.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center text-slate-700">
+                            <i class="fa-solid fa-check text-green-500 mr-2"></i> SolidWorks (4 Years)
+                        </div>
+                        <div class="flex items-center text-slate-700">
+                            <i class="fa-solid fa-check text-green-500 mr-2"></i> R&D Internship
+                        </div>
+                        <div class="flex items-center text-slate-700">
+                            <i class="fa-solid fa-check text-green-500 mr-2"></i> Tooling Design
+                        </div>
+                        <div class="flex items-center text-slate-700">
+                            <i class="fa-solid fa-check text-green-500 mr-2"></i> Materials Science
+                        </div>
+                    </div>
+
+                    <a href="Busani Dube CV.pdf" download class="inline-flex items-center text-engBlue font-semibold hover:underline border border-engBlue px-4 py-2 rounded hover:bg-engBlue hover:text-white transition-all">
+                        Download Full CV <i class="fa-solid fa-download ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-6">Get In Touch</h2>
+            <p class="text-slate-400 mb-8 max-w-xl mx-auto">Based in Gauteng, South Africa. Available for new opportunities.</p>
+
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-10">
+                <a href="mailto:busanicraig@gmail.com" class="flex items-center justify-center gap-3 bg-slate-800 px-6 py-4 rounded-lg hover:bg-slate-700 transition-colors border border-slate-700">
+                    <i class="fa-solid fa-envelope text-engBlue text-xl"></i>
+                    <span>busanicraig@gmail.com</span>
+                </a>
+                <a href="tel:0658710894" class="flex items-center justify-center gap-3 bg-slate-800 px-6 py-4 rounded-lg hover:bg-slate-700 transition-colors border border-slate-700">
+                    <i class="fa-solid fa-phone text-engBlue text-xl"></i>
+                    <span>065 871 0894</span>
+                </a>
+                <a href="https://linkedin.com/in/busani-dube-13b0931a3" target="_blank" class="flex items-center justify-center gap-3 bg-slate-800 px-6 py-4 rounded-lg hover:bg-slate-700 transition-colors border border-slate-700">
+                    <i class="fa-brands fa-linkedin text-engBlue text-xl"></i>
+                    <span>LinkedIn Profile</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-6 text-center text-slate-500 text-sm">
+        <p>&copy; 2026 Busani Graig Dube. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Project Data - Updated with specific files requested
+        const projects = [
+            {
+                id: 1,
+                title: "G-Hook Design",
+                category: "part",
+                image: "photo1.png",
+                fileUrl: "1.zip",
+                icon: "fa-hook",
+                description: "Design and modeling of a G-Hook component for load bearing applications.",
+                fileType: "ZIP",
+                size: "Archive"
+            },
+            {
+                id: 3,
+                title: "Crimping Die",
+                category: "part",
+                image: "photo3.png",
+                fileUrl: "3.zip",
+                icon: "fa-compress",
+                description: "Precision tooling design for a crimping die used in manufacturing processes.",
+                fileType: "ZIP",
+                size: "Archive"
+            },
+            {
+                id: 4,
+                title: "Blanking Tool",
+                category: "part",
+                image: "photo3.png", /* Reusing photo3 as requested */
+                fileUrl: "4.zip",
+                icon: "fa-industry",
+                description: "Design of a blanking tool for sheet metal processing operations.",
+                fileType: "ZIP",
+                size: "Archive"
+            },
+            {
+                id: 5,
+                title: "Bail Component",
+                category: "part",
+                image: "photo4.png",
+                fileUrl: "solidpart1", /* Assuming generic file reference */
+                icon: "fa-circle-notch",
+                description: "SolidWorks part modeling of a Bail component.",
+                fileType: "SLDPRT",
+                size: "File"
+            },
+            {
+                id: 6,
+                title: "Pavillion Structure",
+                category: "assembly",
+                image: "photo5.png",
+                fileUrl: "Pavillion Assembly.pdf",
+                icon: "fa-landmark",
+                description: "Structural assembly design for a pavillion, including technical drawings.",
+                fileType: "PDF",
+                size: "Doc"
+            },
+            {
+                id: 7,
+                title: "Feeder Unit",
+                category: "assembly",
+                image: null, /* No image specified */
+                fileUrl: "5.zip",
+                icon: "fa-arrows-rotate",
+                description: "Automated feeder unit assembly design.",
+                fileType: "ZIP",
+                size: "Archive"
+            },
+            {
+                id: 8,
+                title: "Decoiler Machine",
+                category: "assembly",
+                image: "photo6.png",
+                fileUrl: "decoiler.zip", /* Inferred filename */
+                icon: "fa-scroll",
+                description: "Heavy-duty decoiler machine design for material handling.",
+                fileType: "ZIP",
+                size: "Archive"
+            },
+            {
+                id: 9,
+                title: "CNC Trolley",
+                category: "assembly",
+                image: null,
+                fileUrl: "cnc_trolley.zip", /* Inferred filename */
+                icon: "fa-dolly",
+                description: "Design of a mobile trolley for CNC tool management and transport.",
+                fileType: "SLDASM",
+                size: "Model"
+            },
+            {
+                id: 10,
+                title: "Bailout Jig",
+                category: "part",
+                image: null,
+                fileUrl: "bailout_jig.zip",
+                icon: "fa-screwdriver-wrench",
+                description: "Custom jig design for manufacturing support and assembly.",
+                fileType: "ZIP",
+                size: "Archive"
+            },
+            {
+                id: 11,
+                title: "Factory Layout",
+                category: "zip",
+                image: null,
+                fileUrl: "factory_layout.zip",
+                icon: "fa-warehouse",
+                description: "Optimized factory floor layout planning for efficient production workflow.",
+                fileType: "ZIP",
+                size: "Archive"
+            },
+            {
+                id: 12,
+                title: "Gate Drawing",
+                category: "drawing",
+                image: null,
+                fileUrl: "Gate Drawings.zip",
+                icon: "fa-door-open",
+                description: "Fabrication drawings and assembly details for a structural gate design.",
+                fileType: "ZIP",
+                size: "Archive"
+            },
+            {
+                id: 13,
+                title: "Design Assembly 1",
+                category: "part",
+                image: null,
+                fileUrl: "Assem1.x_t",
+                icon: "fa-cubes-stacked",
+                description: "Technical design export in Parasolid (x_t) format for cross-platform compatibility.",
+                fileType: "X_T",
+                size: "Model"
+            },
+            {
+                id: 14,
+                title: "Design Assembly 3 SP",
+                category: "part",
+                image: null,
+                fileUrl: "Assm3 SP.step",
+                icon: "fa-cube",
+                description: "STEP file export of special assembly design configuration.",
+                fileType: "STEP",
+                size: "Model"
+            },
+            {
+                id: 15,
+                title: "Other Projects",
+                category: "other",
+                image: null,
+                fileUrl: "8.zip",
+                icon: "fa-box-open",
+                description: "Collection of miscellaneous engineering designs and resources.",
+                fileType: "ZIP",
+                size: "Archive"
+            }
+        ];
+
+        const grid = document.getElementById('project-grid');
+        const noResults = document.getElementById('no-results');
+        const btns = document.querySelectorAll('.category-btn');
+
+        // Function to determine badge color based on category
+        function getCategoryColor(cat) {
+            switch(cat) {
+                case 'assembly': return 'bg-purple-100 text-purple-700 border-purple-200';
+                case 'part': return 'bg-blue-100 text-blue-700 border-blue-200';
+                case 'drawing': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
+                case 'zip': return 'bg-gray-100 text-gray-700 border-gray-200';
+                case 'other': return 'bg-orange-100 text-orange-700 border-orange-200';
+                default: return 'bg-slate-100 text-slate-700';
+            }
+        }
+
+        // Function to render projects
+        function renderProjects(filter = 'all') {
+            grid.innerHTML = '';
+
+            const filteredProjects = filter === 'all'
+                ? projects
+                : projects.filter(p => p.category === filter);
+
+            if (filteredProjects.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            filteredProjects.forEach(project => {
+                // Generate a placeholder card
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden card-hover transition-all duration-300 flex flex-col h-full';
+
+                // Visual logic: Use image if provided, otherwise generic tech background
+                let visualContent = '';
+                if (project.image) {
+                    // We assume images are in the same directory
+                    visualContent = `<img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <div class="w-full h-48 bg-slate-100 items-center justify-center relative overflow-hidden group hidden">
+                             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#0f4c81 1px, transparent 1px); background-size: 10px 10px;"></div>
+                             <i class="fa-solid ${project.icon} text-6xl text-slate-300 group-hover:text-engBlue group-hover:scale-110 transition-all duration-500"></i>
+                    </div>`;
+                } else {
+                    // Create a CSS/Icon based placeholder
+                    visualContent = `
+                        <div class="w-full h-48 bg-slate-100 flex items-center justify-center relative overflow-hidden group">
+                             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#0f4c81 1px, transparent 1px); background-size: 10px 10px;"></div>
+                             <i class="fa-solid ${project.icon} text-6xl text-slate-300 group-hover:text-engBlue group-hover:scale-110 transition-all duration-500"></i>
+                             ${project.category === 'zip' ? '<div class="absolute top-3 right-3 bg-slate-800 text-white text-xs px-2 py-1 rounded">ARCHIVE</div>' : ''}
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${visualContent}
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="px-2 py-1 rounded text-xs font-semibold uppercase tracking-wide border ${getCategoryColor(project.category)}">
+                                ${project.category}
+                            </span>
+                            <span class="text-xs text-slate-400 font-mono">${project.fileType}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">${project.title}</h3>
+                        <p class="text-slate-600 text-sm mb-4 flex-grow">${project.description}</p>
+
+                        <div class="pt-4 border-t border-slate-100 mt-auto flex items-center justify-between">
+                            <span class="text-xs text-slate-400 font-medium"><i class="fa-solid fa-database mr-1"></i> ${project.size}</span>
+                            <a href="${project.fileUrl}" class="text-engBlue hover:text-blue-800 font-medium text-sm flex items-center gap-1 transition-colors">
+                                Download/View <i class="fa-solid fa-arrow-down"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Handle Filter Clicks
+        function filterProjects(category) {
+            // Update active state of buttons
+            btns.forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.classList.add('active');
+                    btn.classList.remove('text-slate-600', 'border-slate-300');
+                } else {
+                    btn.classList.remove('active');
+                    btn.classList.add('text-slate-600', 'border-slate-300');
+                }
+            });
+
+            // Re-render grid
+            renderProjects(category);
+        }
+
+        // Initial Render
+        renderProjects('all');
+
+    </script>
+</body>
+</html>
